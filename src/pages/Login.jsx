@@ -6,9 +6,13 @@ function Login() {
   return (
     <div>
       <label>
+        Email:
+        {' '}
         <input type="email" data-testid="email-input" />
       </label>
       <label>
+        Password:
+        {' '}
         <input type="" data-testid="password-input" />
       </label>
       <button
