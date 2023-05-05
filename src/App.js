@@ -9,6 +9,7 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/meals" component="" />
       </Switch>
     </div>
   );

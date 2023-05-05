@@ -8,17 +8,9 @@ function AppProvider({ children }) {
     password: '',
   });
 
-  const handleChange = (functionName, { value, name }) => {
-    functionName((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   const values = useMemo(() => ({
     login,
     setLogin,
-    handleChange,
   }), [login]);
 
   return (
