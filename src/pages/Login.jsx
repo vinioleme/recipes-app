@@ -1,4 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 function Login() {
@@ -16,13 +18,11 @@ function Login() {
       !isValidEmail,
     ];
     const noErrors = errors.every((error) => error === false);
-    console.log(login.email);
     setIsDisabled(!noErrors);
   }, [login]);
 
   useEffect(() => {
     handleErrors();
-    localStorage.setItem('user', JSON.stringify({ email: login.email }));
   }, [handleErrors, login.email]);
 
   const handleChange = (functionName, { value, name }) => {
@@ -32,11 +32,17 @@ function Login() {
     }));
   };
 
+  const handleClick = (email) => {
+    const user = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+
   return (
     <div>
       <label>
         Email:
-        {' '}
         <input
           name="email"
           value={ login.email }
@@ -47,7 +53,6 @@ function Login() {
       </label>
       <label>
         Password:
-        {' '}
         <input
           name="password"
           value={ login.password }
@@ -56,13 +61,17 @@ function Login() {
           onChange={ ({ target }) => handleChange(setLogin, target) }
         />
       </label>
-      <button
-        data-testid="login-submit-btn"
-        disabled={ isDisabled }
-      >
-        Enter
 
-      </button>
+      <Link to="/meals">
+        <button
+          data-testid="login-submit-btn"
+          disabled={ isDisabled }
+          onClick={ () => handleClick(login.email) }
+        >
+          Enter
+
+        </button>
+      </Link>
     </div>
   );
 }
