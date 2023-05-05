@@ -1,19 +1,21 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { mockUserData } from './mocks/userMock';
+// import { mockUserData } from './mocks/userMock';
+import { renderWithRouter } from './helpers/renderwith';
+import AppProvider from '../context/AppProvider';
 
 const emailString = 'email-input';
 const passwordString = 'password-input';
 const btnLoginString = 'login-submit-btn';
 describe('Testes da página de login', () => {
-  beforeEach(() => {
-    render(<App />);
-  });
+  // beforeEach(() => {
+  //   render(<App />);
+  // });
 
   it('testa se os inputs e botao estao presentes', () => {
-    render(<App />);
+    renderWithRouter(<AppProvider><App /></AppProvider>);
     const inputEmail = screen.getByTestId(emailString);
     const inputPassword = screen.getByTestId(passwordString);
     const btnLogin = screen.getByTestId(btnLoginString);
@@ -23,7 +25,7 @@ describe('Testes da página de login', () => {
     expect(btnLogin).toBeInTheDocument();
   });
   it('testa se é possivel escrever nos inputs', () => {
-    render(<App />);
+    renderWithRouter(<AppProvider><App /></AppProvider>);
     const inputEmail = screen.getByTestId(emailString);
     const inputPassword = screen.getByTestId(passwordString);
     const btnLogin = screen.getByTestId(btnLoginString);
@@ -36,7 +38,7 @@ describe('Testes da página de login', () => {
     expect(btnLogin).not.toBeDisabled();
   });
   it('testa se leva a pagina de ', () => {
-    Storage.prototype.getItem = jest.fn(() => JSON.stringify(mockUserData));
+    // Storage.prototype.getItem = jest.fn(() => JSON.stringify(mockUserData));
     const initialEntries = '/';
     const initialState = {
       user: {
@@ -44,7 +46,11 @@ describe('Testes da página de login', () => {
       },
     };
 
-    const { history } = render(<App />, initialState, initialEntries);
+    const { history } = renderWithRouter(
+      <AppProvider><App /></AppProvider>,
+      initialState,
+      initialEntries,
+    );
     const inputEmail = screen.getByTestId(emailString);
     const inputPassword = screen.getByTestId(passwordString);
     const btnLogin = screen.getByTestId(btnLoginString);
