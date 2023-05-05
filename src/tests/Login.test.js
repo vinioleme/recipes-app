@@ -9,13 +9,24 @@ import AppProvider from '../context/AppProvider';
 const emailString = 'email-input';
 const passwordString = 'password-input';
 const btnLoginString = 'login-submit-btn';
+const emailTests = 'asd@email.com';
 describe('Testes da página de login', () => {
   // beforeEach(() => {
   //   render(<App />);
   // });
 
   it('testa se os inputs e botao estao presentes', () => {
-    renderWithRouter(<AppProvider><App /></AppProvider>);
+    const initialEntries = '/';
+    const initialState = {
+      user: {
+        email: emailTests,
+      },
+    };
+    renderWithRouter(
+      <AppProvider><App /></AppProvider>,
+      initialState,
+      initialEntries,
+    );
     const inputEmail = screen.getByTestId(emailString);
     const inputPassword = screen.getByTestId(passwordString);
     const btnLogin = screen.getByTestId(btnLoginString);
@@ -25,7 +36,17 @@ describe('Testes da página de login', () => {
     expect(btnLogin).toBeInTheDocument();
   });
   it('testa se é possivel escrever nos inputs', () => {
-    renderWithRouter(<AppProvider><App /></AppProvider>);
+    const initialEntries = '/';
+    const initialState = {
+      user: {
+        email: emailTests,
+      },
+    };
+    renderWithRouter(
+      <AppProvider><App /></AppProvider>,
+      initialState,
+      initialEntries,
+    );
     const inputEmail = screen.getByTestId(emailString);
     const inputPassword = screen.getByTestId(passwordString);
     const btnLogin = screen.getByTestId(btnLoginString);
@@ -37,12 +58,12 @@ describe('Testes da página de login', () => {
 
     expect(btnLogin).not.toBeDisabled();
   });
-  it('testa se leva a pagina de ', () => {
+  it('testa se leva a pagina de receitas de comida apos o login', () => {
     // Storage.prototype.getItem = jest.fn(() => JSON.stringify(mockUserData));
     const initialEntries = '/';
     const initialState = {
       user: {
-        email: 'asd@email.com',
+        email: emailTests,
       },
     };
 
