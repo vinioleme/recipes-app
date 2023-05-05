@@ -22,7 +22,8 @@ function Login() {
 
   useEffect(() => {
     handleErrors();
-  }, [handleErrors]);
+    localStorage.setItem('user', JSON.stringify({ email: login.email }));
+  }, [handleErrors, login.email]);
 
   const handleChange = (functionName, { value, name }) => {
     functionName((prevState) => ({
